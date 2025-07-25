@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Service Experience</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'feedback/cf.css' %}" />
+  <script src="{% static 'feedback/cf.js' %}"></script>
+</head>
+<body>
+  <div class="topnav">
+    <a class="btn" href="{% url 'feedback:cf' %}">
+      <i class="fa fa-house"></i> Home
+    </a>
+    <a class="btn" href="http://197.248.126.5:8080/customerfeedbackform/login.html">
+       <i class="fa fa-sign-in-alt"></i> Sign In
+     </a>
+  </div>
+
+  <div class="container-fluid fmt-cont-content">
+    <div class="header fmt-header text-center">
+      <img src="http://197.248.126.5:8080/customerfeedbackform/assets/img/icon.png" alt="KEPHIS Logo" />
+      <h3>CUSTOMER FEEDBACK FORM</h3>
+      <hr />
+    </div>
+
+    <div class="doc-info fmt-doc-info">
+      <div class="row">
+      <div class="col-md-6">KEPHIS/QMS/FORM/CF/01</div>
+          <div class="col-md-6">Rev. 04  Issue. 01</div>
+      </div> 
+    </div>
+
+    <form action="{% url 'feedback:submit' %}" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="name" value="{{ name }}">
+      <input type="hidden" name="email" value="{{ email }}">
+      <input type="hidden" name="phone" value="{{ phone }}">
+      <input type="hidden" name="serviceType" value="{{ serviceType }}">
+      <input type="hidden" name="specificService" value="{{ specificService }}">
+      <input type="hidden" name="kephisRegion" value="{{ kephisRegion }}">
+      <input type="hidden" name="kephisOffice" value="{{ kephisOffice }}">
+
+
+      <div class="card text-center mt-4">
+        <div class="card-header">SERVICE EXPERIENCE RATING</div>
+        <div class="card-body">
+          <p class="card-text-title">Please rate the following services:</p>
+
+          <p class="card-text">Working environment</p>
+          <div class="stars">
+            {% for i in "54321" %}
+              <input type="radio" name="rating1" id="star{{ forloop.counter }}" value="{{ i }}" required />
+              <label for="star{{ forloop.counter }}">&#9733;</label>
+            {% endfor %}
+          </div>
+
+          <p class="card-text mt-3">Courtesy of the Staff</p>
+          <div class="stars">
+            {% for i in "54321" %}
+              <input type="radio" name="rating2" id="star{{ forloop.counter0|add:10 }}" value="{{ i }}" required />
+              <label for="star{{ forloop.counter0|add:10 }}">&#9733;</label>
+            {% endfor %}
+          </div>
+
+          <p class="card-text mt-3">Staff Professionalism</p>
+          <div class="stars">
+            {% for i in "54321" %}
+              <input type="radio" name="rating3" id="star{{ forloop.counter0|add:15 }}" value="{{ i }}" required />
+              <label for="star{{ forloop.counter0|add:15 }}">&#9733;</label>
+            {% endfor %}
+          </div>
+
+          <p class="card-text mt-3">Time spent waiting</p>
+          <div class="stars">
+            {% for i in "54321" %}
+              <input type="radio" name="rating4" id="star{{ forloop.counter0|add:20 }}" value="{{ i }}" required />
+              <label for="star{{ forloop.counter0|add:20 }}">&#9733;</label>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="card-footer text-muted d-flex justify-content-between">
+          <a href="{% url 'feedback:services' %}" class="btn btn-primary">Back</a>
+          <button class="btn btn-success" type="submit" onclick="afterSubmit();">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <script>
+    function afterSubmit() {
+      alert("Thank you for taking the time to provide us with your insightful feedback. ");
+    }
+  </script>
+</body>
+</html>

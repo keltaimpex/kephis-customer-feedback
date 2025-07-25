@@ -1,0 +1,142 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Services Required</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'feedback/cf.css' %}" type="text/css">
+    <script src="{% static 'feedback/cf.js' %}"></script>
+</head>
+<body>
+    <div class="topnav">
+        <a class="btn" href="{% url 'feedback:cf' %}">
+            <i class="fa fa-house"></i> Home
+        </a>
+        <a class="btn" href="http://197.248.126.5:8080/customerfeedbackform/login.html">
+            <i class="fa fa-sign-in-alt"></i> Sign In
+        </a>
+    </div>
+
+    <div class="container-fluid fmt-cont-content">
+
+        <div class="header fmt-header">
+            <div class="row">
+                <div class="col-md-12">
+                    <img src="http://197.248.126.5:8080/customerfeedbackform/assets/img/icon.png" alt="KEPHIS Logo">
+                    <br>                    
+                    <h3 class="text-center">CUSTOMER FEEDBACK FORM</h3>
+                    <hr>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="doc-info fmt-doc-info">
+                <div class="row">
+                    <div class="col-md-6">KEPHIS/QMS/FORM/CF/01</div>
+                    <div class="col-md-6">Rev. 04  Issue. 01</div>
+                </div> 
+            </div>                   
+        </div>
+
+        <form action="{% url 'feedback:RATING' %}" method="post">
+            {% csrf_token %}
+
+            <!-- Hidden inputs for data coming from cf.html -->
+            <input type="hidden" name="name" value="{{ name }}">
+            <input type="hidden" name="email" value="{{ email }}">
+            <input type="hidden" name="phone" value="{{ phone }}">
+
+            <div class="card text-center">
+                <div class="card-header">
+                    SERVICE(S) REQUIRED
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Please select the services you utilized and the KEPHIS Region:</p>
+                </div>
+
+                <select name="serviceType" class="form-select" id="serviceType" required>
+                    <option value="" disabled {% if not serviceType %}selected{% endif %}>Select Service Type</option>
+                    <option value="Financial Services" {% if serviceType == "Financial Services" %}selected{% endif %}>Financial Services</option>
+                    <option value="Laboratory Testing" {% if serviceType == "Laboratory Testing" %}selected{% endif %}>Laboratory Testing</option>
+                    <option value="Phytosanitary Services" {% if serviceType == "Phytosanitary Services" %}selected{% endif %}>Phytosanitary Services</option>
+                    <option value="Seed Certification" {% if serviceType == "Seed Certification" %}selected{% endif %}>Seed Certification Services</option>
+                </select>
+                <br>
+
+                <select name="specificService" class="form-select" id="specificService" required>
+                    <option value="" disabled {% if not specificService %}selected{% endif %}>Select Specific Service</option>
+                    <!-- Replace with your actual options -->
+                    <option value="Biological Import Permit Service" {% if specificService == "Biological Import Permit Service" %}selected{% endif %}>FIN - Biological Import Permit Service</option>
+                    <!-- Add your other options with the same selected logic -->
+                </select>
+                <br>
+
+                <select name="kephisRegion" class="form-select" id="kephisRegion" required>
+                    <option value="" disabled {% if not kephisRegion %}selected{% endif %}>Select KEPHIS Region</option>
+                    <option value="Embu" {% if kephisRegion == "Embu" %}selected{% endif %}>Embu</option>
+                    <option value="JKIA-Plant Inspection Unit Region" {% if kephisRegion == "JKIA-Plant Inspection Unit Region" %}selected{% endif %}>JKIA- Plant Inspection Unit Region</option>
+                    <option value="KEPHIS Headquarters" {% if kephisRegion == "KEPHIS Headquarters" %}selected{% endif %}>KEPHIS Headquarters</option>
+                    <option value="Kisumu Region" {% if kephisRegion == "Kisumu Region" %}selected{% endif %}>Kisumu Region</option>
+                    <option value="Kitale Region" {% if kephisRegion == "Kitale Region" %}selected{% endif %}>Kitale Region</option>
+                    <option value="Mombasa Region" {% if kephisRegion == "Mombasa Region" %}selected{% endif %}>Mombasa Region</option>
+                    <option value="Muguga-PGBS Region" {% if kephisRegion == "Muguga-PGBS Region" %}selected{% endif %}>Muguga-PGBS Region</option>
+                    <option value="Naivasha Region" {% if kephisRegion == "Naivasha Region" %}selected{% endif %}>Naivasha Region</option>
+                    <option value="Nakuru Region" {% if kephisRegion == "Nakuru Region" %}selected{% endif %}>Nakuru Region</option>
+                </select>
+                <br>
+
+                <select name="kephisOffice" class="form-select" id="kephisOffice" required>
+                    <option value="" disabled {% if not kephisOffice %}selected{% endif %}>Select KEPHIS Office</option>
+                    <option value="Embu" {% if kephisOffice == "Embu" %}selected{% endif %}>EMB - Embu Office</option>
+                    <option value="Isiolo" {% if kephisOffice == "Isiolo" %}selected{% endif %}>EMB - Isiolo Office</option>
+                    <option value="Mandera" {% if kephisOffice == "Mandera" %}selected{% endif %}>EMB - Mandera Office</option>
+                    <option value="Moyale" {% if kephisOffice == "Moyale" %}selected{% endif %}>EMB - Moyale Office</option>
+                    <option value="Nyeri" {% if kephisOffice == "Nyeri" %}selected{% endif %}>EMB - Nyeri Office</option>
+                    <option value="Timau" {% if kephisOffice == "Timau" %}selected{% endif %}>EMB - Timau Office</option>
+                    <option value="KEPHIS Head Office" {% if kephisOffice == "KEPHIS Head Office" %}selected{% endif %}>HQ - KEPHIS Head Office</option>
+                    <option value="ICD" {% if kephisOffice == "ICD" %}selected{% endif %}>JKIA - ICD Office</option>
+                    <option value="JKIA-PIU" {% if kephisOffice == "JKIA-PIU" %}selected{% endif %}>JKIA - JKIA-PIU Office</option>
+                    <option value="Oloitoktok" {% if kephisOffice == "Oloitoktok" %}selected{% endif %}>JKIA - Oloitoktok Office</option>
+                    <option value="Namanga" {% if kephisOffice == "Namanga" %}selected{% endif %}>JKIA - Namanga Office</option>
+                    <option value="Busia" {% if kephisOffice == "Busia" %}selected{% endif %}>KSM - Busia Office</option>
+                    <option value="Isebania" {% if kephisOffice == "Isebania" %}selected{% endif %}>KSM - Isebania Office</option>
+                    <option value="Kisumu" {% if kephisOffice == "Kisumu" %}selected{% endif %}>KSM - Kisumu Office</option>
+                    <option value="Mbita" {% if kephisOffice == "Mbita" %}selected{% endif %}>KSM - Mbita Office</option>
+                    <option value="Eldoret" {% if kephisOffice == "Eldoret" %}selected{% endif %}>KTL - Eldoret Office</option>
+                    <option value="Lwakhakha" {% if kephisOffice == "Lwakhakha" %}selected{% endif %}>KTL - Lwakhakha Office</option>
+                    <option value="Malaba" {% if kephisOffice == "Malaba" %}selected{% endif %}>KTL - Malaba Office</option>
+                    <option value="Suam" {% if kephisOffice == "Suam" %}selected{% endif %}>KTL - Suam Office</option>
+                    <option value="Bura" {% if kephisOffice == "Bura" %}selected{% endif %}>MBS - Bura Office</option>
+                    <option value="Huduma Center Mombasa" {% if kephisOffice == "Huduma Center Mombasa" %}selected{% endif %}>MBS - Huduma Center Mombasa Office</option>
+                    <option value="Lamu" {% if kephisOffice == "Lamu" %}selected{% endif %}>MBS - Lamu Office</option>
+                    <option value="Lunga-Lunga" {% if kephisOffice == "Lunga-Lunga" %}selected{% endif %}>MBS - Lunga-Lunga Office</option>
+                    <option value="Moi International Airport" {% if kephisOffice == "Moi International Airport" %}selected{% endif %}>MBS - Moi International Airport Mombasa Office</option>
+                    <option value="Port of Mombasa" {% if kephisOffice == "Port of Mombasa" %}selected{% endif %}>MBS - Port of Mombasa Office</option>
+                    <option value="Shimoni" {% if kephisOffice == "Shimoni" %}selected{% endif %}>MBS - Shimoni Office</option>
+                    <option value="Taita Taveta" {% if kephisOffice == "Taita Taveta" %}selected{% endif %}>MBS - Taita Taveta Office</option>
+                    <option value="Nakuru" {% if kephisOffice == "Nakuru" %}selected{% endif %}>MKR - Nakuru Office</option>
+                    <option value="Naivasha" {% if kephisOffice == "Naivasha" %}selected{% endif %}>NVS - Naivasha Office</option>
+                    <option value="Muguga-PGBS" {% if kephisOffice == "Muguga-PGBS" %}selected{% endif %}>PQBS - Muguga-PGBS Office</option>
+                </select>
+
+                <br><br>
+                <div class="card-footer text-muted">
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'feedback:cf' %}" class="btn btn-primary">Back</a>
+                        <button type="submit" class="btn btn-primary">Next</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <br><br><br>
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted">© KEPHIS 2025. All rights reserved.</span>
+        </div>
+    </footer>
+</body>
+</html>

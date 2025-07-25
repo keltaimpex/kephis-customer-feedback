@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Customer Feedback Form</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'feedback/cf.css' %}" />
+  <script src="{% static 'feedback/cf.js' %}"></script>
+</head>
+<body>
+  <div class="topnav">
+    <a class="btn" href="{% url 'feedback:cf' %}">
+      <i class="fa fa-house"></i> Home
+    </a>
+    <a class="btn" href="http://127.0.0.1:8000/admin/login/?next=/admin/">
+       <i class="fa fa-sign-in-alt"></i> Sign In
+     </a>
+  </div>
+
+  <div class="container-fluid fmt-cont-content">
+    <div class="header fmt-header text-center">
+      <img src="http://197.248.126.5:8080/customerfeedbackform/assets/img/icon.png" alt="KEPHIS Logo" />
+      <h3>CUSTOMER FEEDBACK FORM</h3>
+      <hr />
+    </div>
+
+    <div class="doc-info fmt-doc-info">
+      <div class="row">
+        <div class="col-md-6">KEPHIS/QMS/FORM/CF/01</div>
+          <div class="col-md-6">Rev. 04  Issue. 01</div>
+      </div> 
+    </div>
+
+    <form action="{% url 'feedback:services' %}" method="post">
+      {% csrf_token %}
+      <div class="card text-center mt-4">
+        <div class="card-header">CUSTOMER DETAILS</div>
+        <div class="card-body">
+
+          <div class="mb-3">
+            <label for="name" class="form-label">Name:</label>
+            <input type="text" name="name" id="name" class="form-control" required />
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input type="email" name="email" id="email" class="form-control" required />
+          </div>
+
+          <div class="mb-3">
+            <label for="phone" class="form-label">Phone:</label>
+            <input type="text" name="phone" id="phone" class="form-control" required />
+          </div>
+
+        </div>
+
+        <div class="card-footer text-muted d-flex justify-content-between">
+          <button type="submit" class="btn btn-cf">Next</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
